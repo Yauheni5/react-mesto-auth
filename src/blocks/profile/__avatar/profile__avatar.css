@@ -4,4 +4,9 @@
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
+  z-index: 1;
+}
+
+.profile__avatar:hover {
+  z-index: -1;
 }

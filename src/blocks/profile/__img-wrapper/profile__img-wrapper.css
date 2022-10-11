@@ -1,6 +1,9 @@
 .profile__img-wrapper {
   transition: opacity .5s linear;
   cursor: pointer;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
 }
 
 .profile__img-wrapper:hover {
@@ -14,6 +17,7 @@
   position: absolute;
   left: 50px;
   top: 85px;
+  z-index: 1;
 }
 
 @media (max-width: 620px) {

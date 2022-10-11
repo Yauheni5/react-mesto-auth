@@ -1,5 +1,8 @@
 export default function Footer() {
-  return (<footer className="footer">
-  <p className="footer__copyrigt">© 2020 Mesto Russia</p>
-</footer>)
+  const currenYear = new Date().getFullYear();
+  return (
+    <footer className="footer">
+      <p className="footer__copyrigt">© {currenYear} Mesto Russia</p>
+    </footer>
+  );
 }
