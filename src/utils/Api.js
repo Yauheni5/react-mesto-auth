@@ -35,8 +35,8 @@ class Api {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          name: userData['name-input'],
-          about: userData['job-input']
+          name: userData.name,
+          about: userData.about
         })
       })
       .then(this._checkResponseError)
@@ -47,7 +47,7 @@ class Api {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          avatar: userData['url-avatar-input']
+          avatar: userData.avatar
         })
       })
       .then(this._checkResponseError)
@@ -65,17 +65,17 @@ class Api {
       .then(this._checkResponseError)
   }
 
-  deleteCard(idCardDelete) {
-    return fetch(`${this.url}/cards/${idCardDelete}`, {
+  deleteCard(cardId) {
+    return fetch(`${this.url}/cards/${cardId}`, {
         method: 'DELETE',
         headers: this._headers,
       })
       .then(this._checkResponseError)
   }
 
-  handleToggleLikeApi(dataCard) {
-    return fetch(`${this.url}/cards/${(dataCard?._item?.idCard || dataCard?._item?._id)}/likes`, {
-        method: dataCard.isLiked() ? "DELETE" : "PUT",
+  handleToggleLikeApi(cardId, isLiked) {
+    return fetch(`${this.url}/cards/${cardId}/likes`, {
+        method: `${isLiked ? "DELETE" : "PUT"}`,
         headers: this._headers,
       })
       .then(this._checkResponseError)

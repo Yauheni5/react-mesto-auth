@@ -1,22 +1,22 @@
-export default function ImagePopup(props) {
+export default function ImagePopup({ card, onCloseClick }) {
   const popupActive = "pop-up_active";
   return (
     <div
-      className={`pop-up ${props.card ? popupActive : ""} pop-up_view-card`}
-      onClick={props.onCloseClick}
+      className={`pop-up ${card ? popupActive : ""} pop-up_view-card`}
+      onClick={onCloseClick}
     >
       <div className="pop-up__form pop-up__container pop-up__container_view-card pop-up__form-view-card">
         <button
           type="button"
           className="pop-up__close-icon"
-          onClick={props.onClose}
+          onClick={onCloseClick}
         />
         <img
-          src={props.card?.link}
-          alt={props.card?.name}
+          src={card?.link}
+          alt={card?.name}
           className="pop-up__view-img"
         />
-        <h2 className="pop-up__title-view-img">{props.card?.name}</h2>
+        <h2 className="pop-up__title-view-img">{card?.name}</h2>
       </div>
     </div>
   );

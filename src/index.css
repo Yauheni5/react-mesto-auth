@@ -63,5 +63,5 @@
 @import url('../src/blocks/pop-up/__title-view-img/pop-up__title-view-img.css');
 @import url('../src/blocks/pop-up/__input/_type/_error/pop-up__input_type_error.css');
 @import url("../src/blocks/pop-up/__button/_inactive/pop-up__button_inactive.css");
-@import url('../src/blocks/pop-up/__error/_visible/pop-up__error_visible.css');
 @import url('../src/blocks/pop-up/__input-error/pop-up__input-error.css');
+@import url('../src/blocks/pop-up/__error/_visible/pop-up__error_visible.css');
