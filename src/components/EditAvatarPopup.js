@@ -3,17 +3,17 @@ import PopupWithForm from "./PopupWithForm";
 
 export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const avatarRef = React.useRef("");
-  const [inputValid, setInputValid] = React.useState(false);
+  const [isValidInput, setIsValidInput] = React.useState(false);
   const [inputError, setInputError] = React.useState("");
   const [isValid, setIsValid] = React.useState(false);
 
   const handleChangeInputError = (e) => {
     if (e.target.validity.valid) {
       setInputError("");
-      setInputValid(true);
+      setIsValidInput(true);
     } else {
       setInputError(e.target.validationMessage);
-      setInputValid(false);
+      setIsValidInput(false);
     }
   };
 
@@ -22,18 +22,21 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
-    resetAfterConfirm();
   }
 
-  function resetAfterConfirm () {
-    setInputValid(false);
+  function resetInputValues() {
+    setIsValidInput(false);
     setIsValid(false);
     avatarRef.current.value = "";
   }
 
   React.useEffect(() => {
-    setIsValid(inputValid);
-  }, [inputValid]);
+    resetInputValues();
+  }, [isOpen, onClose]);
+
+  React.useEffect(() => {
+    setIsValid(isValidInput);
+  }, [isValidInput]);
 
   return (
     <PopupWithForm
@@ -54,7 +57,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       />
       <span
         className={
-          inputValid
+          isValidInput
             ? "url-avatar-input-error pop-up__input-error"
             : "url-avatar-input-error pop-up__input-error pop-up__error_visible"
         }>

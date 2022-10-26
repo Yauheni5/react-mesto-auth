@@ -6,8 +6,9 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
-  const [nameValid, setNameValid] = React.useState(true);
-  const [descriptionValid, setDescriptionValid] = React.useState(true);
+  const [isInputNameValid, setIsInputNameValid] = React.useState(true);
+  const [isInputDescriptionValid, setIsInputDescriptionValid] =
+    React.useState(true);
   const [nameError, setNameError] = React.useState("");
   const [descriptionError, setDescriptionError] = React.useState("");
   const [isValid, setIsValid] = React.useState(false);
@@ -23,12 +24,12 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   };
 
   function handleChangeName(e) {
-    handleChangeInputError(e, setNameError, setNameValid);
+    handleChangeInputError(e, setNameError, setIsInputNameValid);
     setName(e.target.value);
   }
 
   function handleChangeDescription(e) {
-    handleChangeInputError(e, setDescriptionError, setDescriptionValid);
+    handleChangeInputError(e, setDescriptionError, setIsInputDescriptionValid);
     setDescription(e.target.value);
   }
 
@@ -40,14 +41,23 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     });
   }
 
-  React.useEffect(() => {
-    setIsValid(nameValid && descriptionValid);
-  }, [nameValid, descriptionValid]);
+  function resetInputValues() {
+    setNameError("");
+    setDescriptionError("");
+    setIsInputNameValid(true);
+    setIsInputDescriptionValid(true);
+    setIsValid(true);
+  }
 
   React.useEffect(() => {
+    setIsValid(isInputNameValid && isInputDescriptionValid);
+  }, [isInputNameValid, isInputDescriptionValid, isOpen, onClose]);
+
+  React.useEffect(() => {
+    resetInputValues();
     setName(currentUser.name);
     setDescription(currentUser.about); // eslint-disable-next-line
-  }, [currentUser]);
+  }, [isOpen, onClose]);
 
   return (
     <PopupWithForm
@@ -70,7 +80,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       />
       <span
         className={
-          nameValid
+          isInputNameValid
             ? "name-input-error pop-up__input-error"
             : "name-input-error pop-up__input-error pop-up__error_visible"
         }>
@@ -89,7 +99,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       />
       <span
         className={
-          descriptionValid
+          isInputDescriptionValid
             ? "job-input-error pop-up__input-error"
             : "job-input-error pop-up__input-error pop-up__error_visible"
         }>
