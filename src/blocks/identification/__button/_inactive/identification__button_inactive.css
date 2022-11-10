@@ -1,0 +1,9 @@
+.identification__button_inactive {
+  cursor: initial;
+  opacity: 0.2;
+}
+
+.identification__button_inactive:hover {
+  cursor: initial;
+  opacity: 0.2;
+}

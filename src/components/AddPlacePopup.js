@@ -41,6 +41,8 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   function resetInputValues() {
     setNameCard("");
     setSrcImg("");
+    setNameError("");
+    setSrcImgError("");
     setIsValidInputNameCard(false);
     setIsValidInputSrcImg(false);
     setIsValid(false);

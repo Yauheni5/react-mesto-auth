@@ -1,5 +1,3 @@
-'use strict'
-
 import brestImg from '../images/brest.jpg';
 import vitebskImg from '../images/vitebsk.jpg';
 import homelImg from '../images/gomel.jpg';
@@ -12,6 +10,13 @@ export const optionsApi = {
   headers: {
     authorization: 'd4c4166d-7da1-41e5-9c12-6ada905232af',
     'Content-Type': 'application/json'
+  }
+}
+
+export const optionsAuthApi = {
+  url: 'https://auth.nomoreparties.co',
+  headers: {
+    'Content-Type': 'application/json',
   }
 }
 

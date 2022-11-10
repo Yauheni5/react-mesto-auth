@@ -11,6 +11,10 @@
 
 /* import header */
 @import url('../src/blocks/header/header.css');
+@import url('../src/blocks/header/__link/header__link.css');
+@import url('../src/blocks/header/cabinet/header__cabinet.css');
+@import url('../src/blocks/header/__login/header__login.css');
+@import url('../src/blocks/header/__button/header__button.css');
 
 /* import logo */
 @import url('../src/blocks/logo/logo.css');
@@ -65,3 +69,17 @@
 @import url("../src/blocks/pop-up/__button/_inactive/pop-up__button_inactive.css");
 @import url('../src/blocks/pop-up/__input-error/pop-up__input-error.css');
 @import url('../src/blocks/pop-up/__error/_visible/pop-up__error_visible.css');
+@import url('../src/blocks/pop-up/__container/_tooltip/pop-up__container_tooltip.css');
+@import url('../src/blocks/pop-up/__image/pop-up__image.css');
+@import url('../src/blocks/pop-up/__text/pop-up__text.css');
+
+/* import identification */
+@import url('../src/blocks/identification/identification.css');
+@import url('../src/blocks/identification/__form/identification__form.css');
+@import url('../src/blocks/identification/__title/identification__title.css');
+@import url('../src/blocks/identification/__input/identification__input.css');
+@import url('../src/blocks/identification/__span-error/identification__span-error.css');
+@import url('../src/blocks/identification/__button/identification__button.css');
+@import url('../src/blocks/identification/__button/_inactive/identification__button_inactive.css');
+@import url('../src/blocks/identification/__button/_save/identification__button_save.css');
+@import url('../src/blocks/identification/__link-log-in/identification__link-log-in.css');

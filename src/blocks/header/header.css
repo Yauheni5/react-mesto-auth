@@ -5,12 +5,12 @@
   padding-top: 45px;
   padding-bottom: 41px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (max-width: 880px) {
   .header {
-    padding-top: 28px;
-    padding-left: 27px;
-    padding-bottom: 31.6px;
+    padding: 28px 27px 31.6px;
   }
 }

@@ -85,4 +85,4 @@ class Api {
   }
 }
 
-export const newApi = new Api(optionsApi);
+export const api = new Api(optionsApi);
