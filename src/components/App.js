@@ -63,10 +63,10 @@ function App() {
         setTextIsSuccessfullRegistration("Вы успешно зарегистрировались!");
       })
       .catch((err) => {
-        setIsSuccessfullRegistrationPopupOpen(true);
-        setIsSuccessfullRegistration(false);
-        setTextIsSuccessfullRegistration(err);
-        console.log(err); // выведем ошибку в консоль
+        err.json().then((error) => {
+          setTooltipErrorInfo(error);
+          console.log(error.message || error.error || err.status); // выведем ошибку в консоль
+        });
       });
   }
 
@@ -81,8 +81,19 @@ function App() {
         localStorage.setItem("token", res.token);
       })
       .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
+        err.json().then((error) => {
+          setTooltipErrorInfo(error);
+          console.log(error.message || error.error || err.status); // выведем ошибку в консоль
+        });
       });
+  }
+
+  function setTooltipErrorInfo(errorResponse) {
+    setIsSuccessfullRegistrationPopupOpen(true);
+    setIsSuccessfullRegistration(false);
+    setTextIsSuccessfullRegistration(
+      errorResponse.message || errorResponse.error || `Ошибка: ${errorResponse}`
+    );
   }
 
   useEffect(() => {
@@ -166,9 +177,6 @@ function App() {
   }
   function handleCardClick(cardData) {
     setSelectedCard(cardData);
-  }
-  function handleCardClick() {
-    setIsSuccessfullRegistrationPopupOpen(true);
   }
 
   function handleUpdateUser(userData) {
