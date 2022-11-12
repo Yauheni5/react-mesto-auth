@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { textButtonPopup, textTitlePopup } from "../utils/constants";
 
-export default function Login({onRegisterUser}) {
-  const textButton = {
-    register: "Зарегистрироваться",
-    logged: "Войти",
-  };
-
-  const textTitle = {
-    register: "Регистрация",
-    logged: "Вход",
-  };
-
+export default function Login({ onRegisterUser }) {
   const [email, setEmail] = useState("");
   const [isInputEmailValid, setIsInputEmailValid] = useState(false);
   const [emailErrorTextInput, setEmailTextInputError] = useState("");
@@ -18,7 +9,6 @@ export default function Login({onRegisterUser}) {
   const [isInputPasswordValid, setIsInputPasswordValid] = useState(false);
   const [passwordErrorTextInput, setPasswordInputTextError] = useState("");
   const [isValid, setIsValid] = useState(false);
-
 
   const handleChangeInputError = (e, setInputError, setInputValid) => {
     if (e.target.validity.valid) {
@@ -31,7 +21,12 @@ export default function Login({onRegisterUser}) {
   };
 
   function handleChangeEmail(e) {
-    handleChangeInputError(e, setEmailTextInputError, setIsInputEmailValid, onRegisterUser);
+    handleChangeInputError(
+      e,
+      setEmailTextInputError,
+      setIsInputEmailValid,
+      onRegisterUser
+    );
     setEmail(e.target.value);
   }
 
@@ -46,7 +41,7 @@ export default function Login({onRegisterUser}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    isValid && onRegisterUser({email: email, password: password});
+    isValid && onRegisterUser({ email: email, password: password });
   }
 
   useEffect(() => {
@@ -56,8 +51,11 @@ export default function Login({onRegisterUser}) {
   return (
     <main className="content">
       <section className="identification">
-        <form className="identification__form" onSubmit={handleSubmit}>
-          <h1 className="identification__title">{ textTitle.logged }</h1>
+        <form
+          className="identification__form"
+          onSubmit={handleSubmit}
+          noValidate>
+          <h1 className="identification__title">{textTitlePopup.logged}</h1>
           <input
             className="identification__input identification__input_email"
             placeholder="Email"
@@ -82,8 +80,10 @@ export default function Login({onRegisterUser}) {
           </span>
           <button
             type="submit"
-            className={`identification__button identification__button_save ${isValid ? "" : "identification__button_inactive"}`}>
-            { textButton.logged }
+            className={`identification__button identification__button_save ${
+              isValid ? "" : "identification__button_inactive"
+            }`}>
+            {textButtonPopup.logged}
           </button>
         </form>
       </section>

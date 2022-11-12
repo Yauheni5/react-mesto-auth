@@ -1,20 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { textButtonPopup, textTitlePopup } from "../utils/constants";
 
-export default function Register({
-  onRegisteredUser,
-  onRegistrationUser,
-}) {
-  const textButton = {
-    register: "Зарегистрироваться",
-    logged: "Войти",
-  };
-
-  const textTitle = {
-    register: "Регистрация",
-    logged: "Вход",
-  };
-
+export default function Register({ onRegisteredUser, onRegistrationUser }) {
   const [email, setEmail] = useState("");
   const [isInputEmailValid, setIsInputEmailValid] = useState(false);
   const [emailErrorTextInput, setEmailTextInputError] = useState("");
@@ -34,11 +22,7 @@ export default function Register({
   };
 
   function handleChangeEmail(e) {
-    handleChangeInputError(
-      e,
-      setEmailTextInputError,
-      setIsInputEmailValid,
-    );
+    handleChangeInputError(e, setEmailTextInputError, setIsInputEmailValid);
     setEmail(e.target.value);
   }
 
@@ -63,10 +47,11 @@ export default function Register({
   return (
     <main className="content">
       <section className="identification">
-        <form className="identification__form" onSubmit={handleSubmit} noValidate>
-          <h1 className="identification__title">
-            {textTitle.register}
-          </h1>
+        <form
+          className="identification__form"
+          onSubmit={handleSubmit}
+          noValidate>
+          <h1 className="identification__title">{textTitlePopup.register}</h1>
           <input
             className="identification__input identification__input_email"
             placeholder="Email"
@@ -91,15 +76,17 @@ export default function Register({
           </span>
           <button
             type="submit"
-            className={`identification__button identification__button_save ${isValid ? "" : "identification__button_inactive"}`}>
-            {textButton.register}
+            className={`identification__button identification__button_save ${
+              isValid ? "" : "identification__button_inactive"
+            }`}>
+            {textButtonPopup.register}
           </button>
-            <Link
-              to="/sign-in"
-              className="identification__link-log-in"
-              onClick={onRegisteredUser}>
-              Уже зарегистрированы? Войти
-            </Link>
+          <Link
+            to="/sign-in"
+            className="identification__link-log-in"
+            onClick={onRegisteredUser}>
+            Уже зарегистрированы? Войти
+          </Link>
         </form>
       </section>
     </main>

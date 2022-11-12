@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { textButtonPopup } from "../utils/constants";
 
 export default function PopupWithForm({
   isOpen,
@@ -14,19 +15,14 @@ export default function PopupWithForm({
 
   useEffect(() => {
     if (name === "edit-avatar" || name === "edit-profile") {
-      return setButtonText(textButton.save);
+      return setButtonText(textButtonPopup.save);
     } else if (name === "add-card") {
-      return setButtonText(textButton.add);
+      return setButtonText(textButtonPopup.add);
     } else if (name === "delete-card") {
-      return setButtonText(textButton.confirm);
+      return setButtonText(textButtonPopup.confirm);
     } // eslint-disable-next-line
   }, [name]);
-  const textButton = {
-    save: "Сохранить",
-    add: "Добавить",
-    confirm: "Да",
-    loading: "Сохранение",
-  };
+
   return (
     <div
       className={`pop-up ${isOpen && popupActive} pop-up_${name}`}

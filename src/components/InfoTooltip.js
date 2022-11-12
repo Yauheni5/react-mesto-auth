@@ -5,8 +5,7 @@ import successfullRegistration from "../images/successfullRegistration.svg";
 export default function InfoTooltip({
   isOpen,
   onCloseClick,
-  isSuccessfullRegistration,
-  textIsSuccessfullRegistration,
+  infoToolTipStatus
 }) {
   return (
     <div
@@ -15,13 +14,14 @@ export default function InfoTooltip({
       <div className={`pop-up__container pop-up__container_tooltip `}>
         <img
           src={
-            isSuccessfullRegistration
+            infoToolTipStatus.status === true
               ? successfullRegistration
               : unSuccessfullRegistration
           }
           className="pop-up__image"
+          alt={infoToolTipStatus.status ? "Изображение подтверждения" : "Изображение ошибка"}
         />
-        <p className="pop-up__text">{textIsSuccessfullRegistration}</p>
+        <p className="pop-up__text">{infoToolTipStatus.text}</p>
         <button
           type="button"
           className="pop-up__close-icon"

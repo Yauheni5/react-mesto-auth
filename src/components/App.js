@@ -22,14 +22,11 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
-  const [
-    isSuccessfullRegistrationPopupOpen,
-    setIsSuccessfullRegistrationPopupOpen,
-  ] = useState(false);
-  const [isSuccessfullRegistration, setIsSuccessfullRegistration] =
-    useState(false);
-  const [textIsSuccessfullRegistration, setTextIsSuccessfullRegistration] =
-    useState("");
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+  const [infoToolTipStatus, setInfoToolTipStatus] = useState({
+    status: false,
+    text: "",
+  });
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -39,16 +36,18 @@ function App() {
   const [loginUser, setLoginUser] = useState("");
 
   useEffect(() => {
-    api
-      .getAllPromise()
-      .then(([userInfo, cardsFromServer]) => {
-        setCurrentUser(userInfo);
-        setCards(cardsFromServer);
-      })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
-  }, []);
+    if (loggedIn) {
+      api
+        .getAllPromise()
+        .then(([userInfo, cardsFromServer]) => {
+          setCurrentUser(userInfo);
+          setCards(cardsFromServer);
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        });
+    }
+  }, [loggedIn]);
 
   function registrationUser(data) {
     authorizationApi
@@ -58,9 +57,11 @@ function App() {
       })
       .then(() => {
         setIsRegisteredUser(true);
-        setIsSuccessfullRegistrationPopupOpen(true);
-        setIsSuccessfullRegistration(true);
-        setTextIsSuccessfullRegistration("Вы успешно зарегистрировались!");
+        setIsInfoToolTipOpen(true);
+        setInfoToolTipStatus({
+          status: true,
+          text: "Вы успешно зарегистрировались!",
+        });
       })
       .catch((err) => {
         err.json().then((error) => {
@@ -89,17 +90,21 @@ function App() {
   }
 
   function setTooltipErrorInfo(errorResponse) {
-    setIsSuccessfullRegistrationPopupOpen(true);
-    setIsSuccessfullRegistration(false);
-    setTextIsSuccessfullRegistration(
-      errorResponse.message || errorResponse.error || `Ошибка: ${errorResponse}`
-    );
+    setIsInfoToolTipOpen(true);
+    setInfoToolTipStatus({
+      status: false,
+      text:
+        errorResponse.message ||
+        errorResponse.error ||
+        `Ошибка: ${errorResponse}`,
+    });
   }
 
   useEffect(() => {
-    if (localStorage?.getItem("token")) {
+    const token = localStorage?.getItem("token");
+    if (token) {
       authorizationApi
-        .checkUserToken(localStorage.getItem("token"))
+        .checkUserToken(token)
         .then((res) => {
           setIsRegisteredUser(true);
           setLoggedIn(true);
@@ -117,7 +122,7 @@ function App() {
     isAddPlacePopupOpen ||
     isDeleteCardPopupOpen ||
     selectedCard ||
-    isSuccessfullRegistrationPopupOpen;
+    isInfoToolTipOpen;
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -157,6 +162,7 @@ function App() {
   }
 
   function handleClickLogout() {
+    setIsRegisteredUser(false);
     setLoggedIn(false);
     setLoginUser("");
     localStorage.removeItem("token");
@@ -244,7 +250,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
     setSelectedCard(null);
-    setIsSuccessfullRegistrationPopupOpen(false);
+    setIsInfoToolTipOpen(false);
   };
 
   return (
@@ -286,6 +292,7 @@ function App() {
             </Route>
 
             <ProtectedRoute
+              exact
               path="/"
               isLogged={loggedIn}
               onEditAvatar={handleEditAvatarClick}
@@ -298,7 +305,7 @@ function App() {
               component={Main}
             />
 
-            <Route path="*" exact>
+            <Route exact path="*">
               {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-up" />}
             </Route>
           </Switch>
@@ -332,9 +339,8 @@ function App() {
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
           <InfoTooltip
-            isOpen={isSuccessfullRegistrationPopupOpen}
-            isSuccessfullRegistration={isSuccessfullRegistration}
-            textIsSuccessfullRegistration={textIsSuccessfullRegistration}
+            isOpen={isInfoToolTipOpen}
+            infoToolTipStatus={infoToolTipStatus}
           />
         </div>
       </div>

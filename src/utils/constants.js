@@ -111,3 +111,17 @@ export const selectorsValidation = {
   inputErrorClass: 'pop-up__input_type_error',
   errorClass: 'pop-up__error_visible'
 }
+
+export const textButtonPopup = {
+  save: "Сохранить",
+  add: "Добавить",
+  confirm: "Да",
+  loading: "Сохранение",
+  register: "Зарегистрироваться",
+  logged: "Войти",
+};
+
+export const textTitlePopup = {
+  register: "Регистрация",
+  logged: "Вход",
+};
