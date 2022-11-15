@@ -21,19 +21,14 @@ export default function Header({
             Выйти
           </Link>
         </div>
+      ) : isRegisteredUser ? (
+        <Link to="/sign-up" onClick={onRegisteredUser} className="header__link">
+          Регистрация
+        </Link>
       ) : (
-        <Route exact path="*">
-          {isRegisteredUser ? (
-            <Redirect
-              to="/sign-up"
-              onClick={onRegisteredUser}
-              className="header__link">
-              Регистрация
-            </Redirect>
-          ) : (
-            <Redirect to="/sign-in">Войти</Redirect>
-          )}
-        </Route>
+        <Link to="/sign-in" onClick={onRegisteredUser} className="header__link">
+          Войти
+        </Link>
       )}
     </header>
   );
